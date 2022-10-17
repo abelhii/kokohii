@@ -1,0 +1,12 @@
+{
+  "name": "kokohii",
+  "version": "1.0.0",
+  "description": "portfolio website",
+  "scripts": {
+    "start": "cd koko && npm run dev",
+    "start:admin": "cd admin && npm run develop",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Koabl",
+  "license": "ISC"
+}
