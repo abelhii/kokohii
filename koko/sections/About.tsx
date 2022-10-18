@@ -3,7 +3,7 @@ import axios from "axios";
 import React from "react";
 
 type AboutType = {
-  About: string;
+  about: string;
 };
 
 const getAbout = async (): Promise<{ data: { attributes: AboutType } }> => {
@@ -17,7 +17,7 @@ export default function About() {
 
   return (
     <section className="flex items-center justify-end h-full min-h-screen max-w-full border-solid border-2 border-green-700">
-      <p className="max-w-4xl whitespace-pre-wrap text-4xl pr-40">{'\t\t\t\t' + description?.About}</p>
+      <p className="max-w-4xl whitespace-pre-wrap text-4xl pr-40">{'\t\t\t\t' + description?.about}</p>
     </section>
   );
 }
