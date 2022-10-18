@@ -20,7 +20,7 @@ const getHeader = async (): Promise<{ data: { attributes: HeaderType } }> => {
 };
 
 export default function Header() {
-  const { data, isLoading } = useQuery(["getHeader"], getHeader);
+  const { data } = useQuery(["getHeader"], getHeader);
 
   const home = data?.data.attributes;
   const headerImg = home?.header_image.data?.attributes;
@@ -28,9 +28,7 @@ export default function Header() {
 
   console.log(home, headerImg, headerImgUrl);
 
-  return isLoading ? (
-    <p>Loading</p>
-  ) : (
+  return (
     <section
       style={{
         backgroundImage: `url(${headerImgUrl})`,

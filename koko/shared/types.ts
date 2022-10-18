@@ -1,8 +1,3 @@
-export enum Theme {
-  dark = "dark",
-  light = "light",
-}
-
 export type ImageType = {
   data: {
     id: number;

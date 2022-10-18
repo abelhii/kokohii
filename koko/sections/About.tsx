@@ -14,7 +14,6 @@ const getAbout = async (): Promise<{ data: { attributes: AboutType } }> => {
 export default function About() {
   const { data } = useQuery(["getAbout"], getAbout);
   let description = data?.data.attributes;
-  // console.log(data);
 
   return (
     <section className="flex items-center justify-end h-full min-h-screen max-w-full border-solid border-2 border-green-700">

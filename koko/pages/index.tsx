@@ -3,7 +3,6 @@ import Head from "next/head";
 import About from "../sections/About";
 import Header from "../sections/Header";
 import ThemeChanger from "../components/ThemeChanger";
-import { theme } from "../shared/utils";
 
 const Home: NextPage = () => {
   return (
