@@ -20,9 +20,6 @@
         "description": {
             "type": "richtext"
         },
-        "contributions": {
-            "type": "json"
-        },
         "strategy": {
             "type": "richtext"
         },
@@ -30,6 +27,24 @@
             "type": "media",
             "multiple": true,
             "required": false,
+            "allowedTypes": [
+                "images"
+            ]
+        },
+        "contributions": {
+            "type": "relation",
+            "relation": "oneToMany",
+            "target": "api::contribution.contribution"
+        },
+        "techUsed": {
+            "type": "relation",
+            "relation": "oneToMany",
+            "target": "api::technology.technology"
+        },
+        "coverImage": {
+            "type": "media",
+            "multiple": false,
+            "required": true,
             "allowedTypes": [
                 "images"
             ]

@@ -16,7 +16,7 @@
       "type": "text",
       "required": true
     },
-    "sub_intro": {
+    "subIntro": {
       "type": "text",
       "required": true
     },
@@ -32,7 +32,7 @@
       "type": "text",
       "required": true
     },
-    "header_image": {
+    "headerImage": {
       "type": "media",
       "multiple": false,
       "required": true,

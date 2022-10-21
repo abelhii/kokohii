@@ -14,13 +14,13 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="relative overflow-y-scroll snap-mandatory snap-y h-screen [&>*]:p-10 [&>section]:snap-start">
+      <main className="relative overflow-y-scroll snap-mandatory snap-y h-screen [&>section]:p-10 [&>section]:snap-start">
         <Header />
         <About />
         <SelectedProjects />
         <h1 className="text-3xl font-bold underline">Hello world!</h1>
 
-        <div className="fixed bottom-0 right-0">
+        <div className="fixed bottom-0 right-0 p-10">
           <ThemeChanger />
         </div>
       </main>

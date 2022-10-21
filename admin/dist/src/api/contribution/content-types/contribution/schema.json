@@ -1,0 +1,20 @@
+{
+    "kind": "collectionType",
+    "collectionName": "contributions",
+    "info": {
+        "singularName": "contribution",
+        "pluralName": "contributions",
+        "displayName": "Contributions"
+    },
+    "options": {
+        "draftAndPublish": false
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "name": {
+            "type": "string",
+            "required": true,
+            "unique": true
+        }
+    }
+}

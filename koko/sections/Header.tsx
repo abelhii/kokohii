@@ -1,15 +1,15 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { ImageType } from "../shared/types";
 
 type HeaderType = {
   introduction: string;
-  sub_intro: string;
+  subIntro: string;
   name: string;
   location: string;
   profession: string;
-  header_image: ImageType;
+  headerImage: ImageType;
 };
 
 const getHeader = async (): Promise<{ data: { attributes: HeaderType } }> => {
@@ -23,7 +23,7 @@ export default function Header() {
   const { data } = useQuery(["getHeader"], getHeader);
 
   const home = data?.data.attributes;
-  const headerImg = home?.header_image.data?.attributes;
+  const headerImg = home?.headerImage.data?.attributes;
   const headerImgUrl = `${process.env.NEXT_PUBLIC_BACKEND}${headerImg?.url}`;
 
   console.log(home, headerImg, headerImgUrl);
@@ -43,7 +43,7 @@ export default function Header() {
       </ul>
       <div className="flex flex-col items-center justify-center h-full w-full gap-40 whitespace-pre-wrap">
         <h1 className="text-5xl max-w-5xl">{home?.introduction}</h1>
-        <h2 className="text-3xl max-w-lg ml-[50%]">{home?.sub_intro}</h2>
+        <h2 className="text-3xl max-w-lg ml-[50%]">{home?.subIntro}</h2>
       </div>
     </section>
   );
