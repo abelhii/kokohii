@@ -38,6 +38,6 @@ export type Project = {
   title: string;
   description: string;
   contributions: APIDatas<{ name: string }>;
-  techUsed: APIDatas<{ name: string }>;
+  techUsed: APIDatas<{ name: string, logo: ImageType }>;
   coverImage: ImageType;
 };

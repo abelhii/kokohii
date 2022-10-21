@@ -1,11 +1,29 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Image from "next/image";
+
 import { APIDatas, Project as ProjectType } from "../../shared/types";
+import { getImageUrl } from "../../shared/utils";
 
 const getProject = async (title: string): Promise<APIDatas<ProjectType>> => {
+  const qs = require("qs");
+  const query = qs.stringify(
+    {
+      populate: {
+        title: {
+          filters: { tile: { $eq: title } },
+        },
+        contributions: true,
+        coverImage: true,
+        techUsed: { populate: { logo: true } },
+      },
+    },
+    { encodeValuesOnly: true }
+  );
+
   const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_BACKEND}/api/projects/?filters[title][$eqi]=${title}&populate=*`
+    `${process.env.NEXT_PUBLIC_BACKEND}/api/projects?${query}`
   );
   return data;
 };
@@ -33,11 +51,63 @@ export default function Project() {
   } = project;
 
   console.log(project);
+  const coverImageUrl = getImageUrl(coverImage);
 
   return (
-    <article>
+    <article className="overflow-y-auto ">
+      <section>
+        <Image
+          src={coverImageUrl}
+          alt={`Cover image for ${projectTitle}`}
+          width="100vw"
+          height="30vh"
+          layout="responsive"
+          objectFit="cover"
+        />
+      </section>
       <section className="m-40">
-        <h1 className="text-6xl">{projectTitle}</h1>
+        <div className="flex justify-between">
+          <div className="flex flex-col gap-5 justify-start">
+            <h1 className="text-4xl">{projectTitle}</h1>
+            <p className="text-l max-w-lg">{description}</p>
+          </div>
+          <div className="flex flex-col gap-10 w-full max-w-xs">
+            <section className="grid gap-3">
+              <h3 className="text-xl">Roles/Contributions:</h3>
+              <hr className="border-gray-500" />
+              <ul className="flex flex-col gap-2">
+                {contributions.data.map((c, index) => {
+                  return (
+                    <li key={c.id + c.attributes.name}>
+                      <p  className="mb-3">{c.attributes.name}</p>
+                      <hr className="border-gray-500" />
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+            <section className="grid gap-3">
+              <h3 className="text-xl">Tech used:</h3>
+              <div className="flex gap-3">
+                {techUsed.data.map((t) => {
+                  const { id, attributes: { logo, name } } = t;
+                  if (!logo) return null;
+                  
+                  return (
+                    <Image
+                      key={id}
+                      src={getImageUrl(logo)}
+                      width="30px"
+                      height="30px"
+                      objectFit="contain"
+                      alt={`${name} logo`}
+                    />
+                  );
+                })}
+              </div>
+            </section>
+          </div>
+        </div>
       </section>
     </article>
   );
