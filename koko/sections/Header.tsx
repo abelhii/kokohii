@@ -1,7 +1,8 @@
 import axios from "axios";
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { ImageType } from "../shared/types";
+import { APIData, ImageType } from "../shared/types";
+import { getImageUrl } from "../shared/utils";
 
 type HeaderType = {
   introduction: string;
@@ -12,7 +13,7 @@ type HeaderType = {
   headerImage: ImageType;
 };
 
-const getHeader = async (): Promise<{ data: { attributes: HeaderType } }> => {
+const getHeader = async (): Promise<APIData<HeaderType>> => {
   const { data } = await axios.get(
     process.env.NEXT_PUBLIC_BACKEND + "/api/home?populate=*"
   );
@@ -23,10 +24,7 @@ export default function Header() {
   const { data } = useQuery(["getHeader"], getHeader);
 
   const home = data?.data.attributes;
-  const headerImg = home?.headerImage.data?.attributes;
-  const headerImgUrl = `${process.env.NEXT_PUBLIC_BACKEND}${headerImg?.url}`;
-
-  console.log(home, headerImg, headerImgUrl);
+  const headerImgUrl = home && getImageUrl(home.headerImage);
 
   return (
     <section

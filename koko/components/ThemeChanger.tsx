@@ -4,8 +4,6 @@ import { useTheme } from "next-themes";
 const ThemeChanger = () => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
-
-  // When mounted on client, now we can show the UI
   useEffect(() => setMounted(true), []);
 
   if (!mounted) return null;
@@ -17,9 +15,9 @@ const ThemeChanger = () => {
   return (
     <div>
       <button
-        className={`ml-4 ${
+        className={
           theme === "dark" ? "hover:text-orange-600" : "hover:text-purple-600"
-        }`}
+        }
         onClick={toggle}
       >
         {theme === "dark" ? (

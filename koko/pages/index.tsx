@@ -2,7 +2,6 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import About from "../sections/About";
 import Header from "../sections/Header";
-import ThemeChanger from "../components/ThemeChanger";
 import SelectedProjects from "../sections/SelectedProjects";
 
 const Home: NextPage = () => {
@@ -18,11 +17,6 @@ const Home: NextPage = () => {
         <Header />
         <About />
         <SelectedProjects />
-        <h1 className="text-3xl font-bold underline">Hello world!</h1>
-
-        <div className="fixed bottom-0 right-0 p-10">
-          <ThemeChanger />
-        </div>
       </main>
     </div>
   );

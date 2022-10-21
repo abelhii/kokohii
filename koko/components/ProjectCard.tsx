@@ -15,14 +15,16 @@ export default function ProjectCard({
   return (
     <article className="flex flex-col p-4 w-full h-full row-span-5">
       {coverImageUrl && (
-        <Image
-          src={coverImageUrl}
-          width="100%"
-          height="50%"
-          layout="responsive"
-          objectFit="cover"
-          alt="cover image"
-        />
+        <div>
+          <Image
+            src={coverImageUrl}
+            width="100%"
+            height="50%"
+            layout="responsive"
+            objectFit="cover"
+            alt="cover image"
+          />
+        </div>
       )}
       <div className="flex justify-between items-center px-10 py-9 max-h-40 bg-koko-black text-white dark:bg-white dark:text-koko-black">
         <div className="grid gap-1">
@@ -32,7 +34,7 @@ export default function ProjectCard({
               contributions.map((c, index) => <li key={index}>{c}</li>)}
           </ul>
         </div>
-        <NavButton label="View" onClick={() => console.log(title)} />
+        <NavButton label="View" href={`/projects/${title}`} />
       </div>
     </article>
   );

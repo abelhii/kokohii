@@ -27,8 +27,6 @@ export default function SelectedProjects() {
   const selectedProjectsData = data?.data.attributes;
   const projects = selectedProjectsData?.projects.data;
 
-  console.log(projects);
-
   return (
     <section className="min-h-screen border-solid border-2 border-yellow-400">
       <div className="grid grid-cols-2 p-20 items-center justify-items-center">
@@ -40,7 +38,11 @@ export default function SelectedProjects() {
         {projects &&
           projects.map((project) => {
             const { id } = project;
-            const { title, contributions, coverImage } = project.attributes;
+            const {
+              title,
+              contributions,
+              coverImage,
+            } = project.attributes;
             const roles = contributions.data.map((c) => c.attributes.name);
 
             return (
