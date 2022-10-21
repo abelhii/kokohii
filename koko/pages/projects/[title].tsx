@@ -10,10 +10,8 @@ const getProject = async (title: string): Promise<APIDatas<ProjectType>> => {
   const qs = require("qs");
   const query = qs.stringify(
     {
+      filters: { title: { $eqi: title } },
       populate: {
-        title: {
-          filters: { tile: { $eq: title } },
-        },
         contributions: true,
         coverImage: true,
         techUsed: { populate: { logo: true } },
@@ -21,6 +19,8 @@ const getProject = async (title: string): Promise<APIDatas<ProjectType>> => {
     },
     { encodeValuesOnly: true }
   );
+
+  console.log(title, query);
 
   const { data } = await axios.get(
     `${process.env.NEXT_PUBLIC_BACKEND}/api/projects?${query}`
@@ -79,7 +79,7 @@ export default function Project() {
                 {contributions.data.map((c, index) => {
                   return (
                     <li key={c.id + c.attributes.name}>
-                      <p  className="mb-3">{c.attributes.name}</p>
+                      <p className="mb-3">{c.attributes.name}</p>
                       <hr className="border-gray-500" />
                     </li>
                   );
@@ -90,9 +90,12 @@ export default function Project() {
               <h3 className="text-xl">Tech used:</h3>
               <div className="flex gap-3">
                 {techUsed.data.map((t) => {
-                  const { id, attributes: { logo, name } } = t;
+                  const {
+                    id,
+                    attributes: { logo, name },
+                  } = t;
                   if (!logo) return null;
-                  
+
                   return (
                     <Image
                       key={id}
