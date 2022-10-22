@@ -1,5 +1,7 @@
 import Image from "next/image";
+
 import NavButton from "./NavButton";
+import navArrow from "../public/images/nav-arrow.svg";
 
 type ProjectCardProps = {
   title: string;
@@ -34,7 +36,9 @@ export default function ProjectCard({
               contributions.map((c, index) => <li key={index}>{c}</li>)}
           </ul>
         </div>
-        <NavButton label="View" href={`/projects/${title}`} />
+        <NavButton href={`/projects/${title}`}>
+          View <Image src={navArrow} alt="view project arrow" />
+        </NavButton>
       </div>
     </article>
   );

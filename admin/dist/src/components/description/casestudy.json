@@ -1,0 +1,17 @@
+{
+    "collectionName": "components_description_casestudy",
+    "info": {
+        "displayName": "Case study descriptions",
+        "icon": "text-height",
+        "description": ""
+    },
+    "options": {},
+    "attributes": {
+        "challenges": {
+            "type": "richtext"
+        },
+        "strategy": {
+            "type": "richtext"
+        }
+    }
+}

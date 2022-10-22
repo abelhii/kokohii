@@ -5,6 +5,8 @@ import Image from "next/image";
 
 import { APIDatas, Project as ProjectType } from "../../shared/types";
 import { getImageUrl } from "../../shared/utils";
+import NavButton from "../../components/NavButton";
+import navArrow from "../../public/images/nav-arrow.svg";
 
 const getProject = async (title: string): Promise<APIDatas<ProjectType>> => {
   const qs = require("qs");
@@ -15,12 +17,11 @@ const getProject = async (title: string): Promise<APIDatas<ProjectType>> => {
         contributions: true,
         coverImage: true,
         techUsed: { populate: { logo: true } },
+        content: { populate: "*" },
       },
     },
     { encodeValuesOnly: true }
   );
-
-  console.log(title, query);
 
   const { data } = await axios.get(
     `${process.env.NEXT_PUBLIC_BACKEND}/api/projects?${query}`
@@ -31,10 +32,12 @@ const getProject = async (title: string): Promise<APIDatas<ProjectType>> => {
 export default function Project() {
   const router = useRouter();
   const { title } = router.query;
-  const { data } = useQuery(["getProject", title], () => {
+  const { data, isFetching } = useQuery(["getProject", title], () => {
     if (title && typeof title === "string") return getProject(title);
     return null;
   });
+
+  if (isFetching) return null;
 
   const project = data?.data[0].attributes;
   if (!project) {
@@ -54,7 +57,7 @@ export default function Project() {
   const coverImageUrl = getImageUrl(coverImage);
 
   return (
-    <article className="overflow-y-auto ">
+    <article className="grid overflow-y-auto h-screen">
       <section>
         <Image
           src={coverImageUrl}
@@ -65,8 +68,14 @@ export default function Project() {
           objectFit="cover"
         />
       </section>
-      <section className="m-40">
-        <div className="flex justify-between">
+      <section className="relative m-40">
+        <div className="fixed top-0 left-0 p-10">
+          <NavButton href="/">
+            <Image src={navArrow} alt="nav arrow" />
+            Back
+          </NavButton>
+        </div>
+        <div className="flex justify-around">
           <div className="flex flex-col gap-5 justify-start">
             <h1 className="text-4xl">{projectTitle}</h1>
             <p className="text-l max-w-lg">{description}</p>

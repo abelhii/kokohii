@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_image_portraits",
+  "info": {
+    "displayName": "portrait",
+    "icon": "portrait"
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    }
+  }
+}

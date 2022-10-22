@@ -1,0 +1,18 @@
+{
+    "collectionName": "components_image_landscapes",
+    "info": {
+        "displayName": "landscape",
+        "icon": "address-card"
+    },
+    "options": {},
+    "attributes": {
+        "image": {
+            "allowedTypes": [
+                "images"
+            ],
+            "type": "media",
+            "multiple": false,
+            "required": true
+        }
+    }
+}

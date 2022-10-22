@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_image_full_widths",
+  "info": {
+    "displayName": "fullWidth",
+    "icon": "exchange-alt"
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    }
+  }
+}

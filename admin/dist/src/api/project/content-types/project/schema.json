@@ -20,17 +20,6 @@
         "description": {
             "type": "richtext"
         },
-        "strategy": {
-            "type": "richtext"
-        },
-        "images": {
-            "type": "media",
-            "multiple": true,
-            "required": false,
-            "allowedTypes": [
-                "images"
-            ]
-        },
         "contributions": {
             "type": "relation",
             "relation": "oneToMany",
@@ -47,6 +36,15 @@
             "required": true,
             "allowedTypes": [
                 "images"
+            ]
+        },
+        "content": {
+            "type": "dynamiczone",
+            "components": [
+                "description.casestudy",
+                "image.portrait",
+                "image.landscape",
+                "image.full-width"
             ]
         }
     }
