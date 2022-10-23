@@ -3,7 +3,12 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
-import { APIDatas, Project as ProjectType } from "../../shared/types";
+import {
+  APIDatas,
+  ImageType,
+  isImageType,
+  Project as ProjectType,
+} from "../../shared/types";
 import { getImageUrl } from "../../shared/utils";
 import NavButton from "../../components/NavButton";
 import navArrow from "../../public/images/nav-arrow.svg";
@@ -55,27 +60,38 @@ export default function Project() {
 
   console.log(project);
   const coverImageUrl = getImageUrl(coverImage);
+  const positionMap: Record<string, string> = {
+    left: "self-start",
+    right: "self-end",
+    center: "self-center",
+  };
 
   return (
     <article className="grid overflow-y-auto h-screen">
-      <section>
-        <Image
-          src={coverImageUrl}
-          alt={`Cover image for ${projectTitle}`}
-          width="100vw"
-          height="30vh"
-          layout="responsive"
-          objectFit="cover"
-        />
+      <section className="h-full w-full">
+        <picture>
+          <img
+            src={coverImageUrl}
+            alt={`Cover image for ${projectTitle}`}
+            style={{
+              width: "100vw",
+              height: "40vh",
+              objectFit: "cover",
+              objectPosition: "center",
+            }}
+          />
+        </picture>
       </section>
-      <section className="relative m-40">
+
+      <section className="relative grid gap-40 m-52">
         <div className="fixed top-0 left-0 p-10">
           <NavButton href="/">
             <Image src={navArrow} alt="nav arrow" />
             Back
           </NavButton>
         </div>
-        <div className="flex justify-around">
+
+        <div className="flex justify-between">
           <div className="flex flex-col gap-5 justify-start">
             <h1 className="text-4xl">{projectTitle}</h1>
             <p className="text-l max-w-lg">{description}</p>
@@ -120,6 +136,53 @@ export default function Project() {
             </section>
           </div>
         </div>
+      </section>
+
+      <section className="flex flex-col gap-32 my-32 items-center w-full">
+        {project.content.map((c, index) => {
+          console.log(c);
+          const [content, type] = c.__component.split(".");
+
+          let padding = "px-52";
+          const position: string =
+            typeof c.position === "string"
+              ? positionMap[c.position]
+              : "self-center";
+
+          if (content === "description" && typeof c.description === "string") {
+            return (
+              <p key={index} className={`${padding}`}>
+                {c.description}
+              </p>
+            );
+          }
+
+          if (content === "image" && isImageType(c.image)) {
+            const url = getImageUrl(c.image);
+            let width, height = "100%";
+            let fullWidth = "100vw";
+            if (type === "portrait") {
+              width = "50%";
+            }
+
+            if(type === "fullWidth") {
+              padding = "";
+            }
+
+            return (
+              <picture
+                key={index}
+                className={`h-full w-full ${fullWidth} ${position} ${padding}`}
+              >
+                <img
+                  src={url}
+                  alt={type}
+                  style={{ width, height, objectFit: "contain" }}
+                />
+              </picture>
+            );
+          }
+        })}
       </section>
     </article>
   );

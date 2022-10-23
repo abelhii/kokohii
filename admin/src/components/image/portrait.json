@@ -2,16 +2,26 @@
   "collectionName": "components_image_portraits",
   "info": {
     "displayName": "portrait",
-    "icon": "portrait"
+    "icon": "portrait",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "image": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "position": {
+      "type": "enumeration",
+      "enum": [
+        "left",
+        "right",
+        "center"
+      ],
       "required": true
     }
   }

@@ -41,10 +41,10 @@
         "content": {
             "type": "dynamiczone",
             "components": [
-                "description.casestudy",
                 "image.portrait",
                 "image.landscape",
-                "image.full-width"
+                "image.full-width",
+                "description.description"
             ]
         }
     }

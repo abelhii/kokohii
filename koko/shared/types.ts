@@ -31,6 +31,10 @@ export type ImageType = APIData<{
   createdAt: string;
   updatedAt: string;
 }>;
+export const isImageType = (x: any): x is ImageType => {
+  if((x as ImageType).data.attributes.url) return true;
+  else return false;
+}
 
 // API specific
 export type Project = {
@@ -38,6 +42,18 @@ export type Project = {
   title: string;
   description: string;
   contributions: APIDatas<{ name: string }>;
-  techUsed: APIDatas<{ name: string, logo: ImageType }>;
+  techUsed: APIDatas<{ name: string; logo: ImageType }>;
   coverImage: ImageType;
+  content: DynamicComponent[];
 };
+
+export enum ProjectImagePositions {
+  left,
+  right,
+  center
+}
+
+type DynamicComponent = {
+  id: number;
+  __component: string;
+} & Record<string, string | number | ImageType>;
