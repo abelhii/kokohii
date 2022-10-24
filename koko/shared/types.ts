@@ -47,13 +47,25 @@ export type Project = {
   content: DynamicComponent[];
 };
 
-export enum ProjectImagePositions {
-  left,
-  right,
-  center
+export enum ContentTypes {
+  description = 'description',
+  image = 'image'
 }
 
-type DynamicComponent = {
+export enum ImageTypes {
+  portrait = 'portrait',
+  landscape = 'landscape',
+  fullWidth = 'full-width'
+}
+
+export enum ProjectContentPositions {
+  left,
+  right,
+  center,
+  fullWidth
+}
+
+export type DynamicComponent = {
   id: number;
   __component: string;
 } & Record<string, string | number | ImageType>;

@@ -1,17 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useRouter } from "next/router";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
+import NavButton from "../../components/NavButton";
+import ProjectContent from "../../components/ProjectContent";
+import navArrow from "../../public/images/nav-arrow.svg";
 import {
-  APIDatas,
-  ImageType,
-  isImageType,
-  Project as ProjectType,
+  APIDatas, Project as ProjectType
 } from "../../shared/types";
 import { getImageUrl } from "../../shared/utils";
-import NavButton from "../../components/NavButton";
-import navArrow from "../../public/images/nav-arrow.svg";
 
 const getProject = async (title: string): Promise<APIDatas<ProjectType>> => {
   const qs = require("qs");
@@ -60,11 +58,6 @@ export default function Project() {
 
   console.log(project);
   const coverImageUrl = getImageUrl(coverImage);
-  const positionMap: Record<string, string> = {
-    left: "self-start",
-    right: "self-end",
-    center: "self-center",
-  };
 
   return (
     <article className="grid overflow-y-auto h-screen">
@@ -139,50 +132,7 @@ export default function Project() {
       </section>
 
       <section className="flex flex-col gap-32 my-32 items-center w-full">
-        {project.content.map((c, index) => {
-          console.log(c);
-          const [content, type] = c.__component.split(".");
-
-          let padding = "px-52";
-          const position: string =
-            typeof c.position === "string"
-              ? positionMap[c.position]
-              : "self-center";
-
-          if (content === "description" && typeof c.description === "string") {
-            return (
-              <p key={index} className={`${padding}`}>
-                {c.description}
-              </p>
-            );
-          }
-
-          if (content === "image" && isImageType(c.image)) {
-            const url = getImageUrl(c.image);
-            let width, height = "100%";
-            let fullWidth = "100vw";
-            if (type === "portrait") {
-              width = "50%";
-            }
-
-            if(type === "fullWidth") {
-              padding = "";
-            }
-
-            return (
-              <picture
-                key={index}
-                className={`h-full w-full ${fullWidth} ${position} ${padding}`}
-              >
-                <img
-                  src={url}
-                  alt={type}
-                  style={{ width, height, objectFit: "contain" }}
-                />
-              </picture>
-            );
-          }
-        })}
+        <ProjectContent content={project.content} />
       </section>
     </article>
   );
