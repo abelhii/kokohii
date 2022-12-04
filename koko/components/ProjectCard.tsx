@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import NavButton from "./NavButton";
-import navArrow from "../public/images/nav-arrow.svg";
+import navArrow from "@images/nav-arrow.svg";
 
 type ProjectCardProps = {
   title: string;

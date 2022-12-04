@@ -4,8 +4,8 @@ import {
   DynamicComponent,
   ImageTypes,
   isImageType,
-} from "../shared/types";
-import { getImageUrl } from "../shared/utils";
+} from "@shared/types";
+import { getImageUrl } from "@shared/utils";
 
 type ProjectContentProps = {
   content: DynamicComponent[];

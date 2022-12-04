@@ -3,11 +3,11 @@ import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-import NavButton from "../../components/NavButton";
-import ProjectContent from "../../components/ProjectContent";
-import navArrow from "../../public/images/nav-arrow.svg";
-import { APIDatas, Project as ProjectType } from "../../shared/types";
-import { getImageUrl } from "../../shared/utils";
+import NavButton from "@components/NavButton";
+import ProjectContent from "@components/ProjectContent";
+import navArrow from "@images/nav-arrow.svg";
+import { APIDatas, Project as ProjectType } from "@shared/types";
+import { getImageUrl } from "@shared/utils";
 
 const getProject = async (title: string): Promise<APIDatas<ProjectType>> => {
   const qs = require("qs");

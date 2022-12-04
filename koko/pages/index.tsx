@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import About from "../sections/About";
-import Header from "../sections/Header";
-import SelectedProjects from "../sections/SelectedProjects";
+import About from "@sections/About";
+import Header from "@sections/Header";
+import SelectedProjects from "@sections/SelectedProjects";
 
 const Home: NextPage = () => {
   return (
