@@ -23,7 +23,7 @@ export default function ProjectContent({ content }: ProjectContentProps) {
       {content.map((c, index) => {
         const [content, type] = c.__component.split(".");
 
-        let padding = "px-52";
+        let padding = "lg:px-52 md:px-30 px-10";
         const position: string =
           typeof c.position === "string"
             ? positionsMap[c.position]
@@ -34,7 +34,7 @@ export default function ProjectContent({ content }: ProjectContentProps) {
           typeof c.description === "string"
         ) {
           return (
-            <p key={index} className={`${padding}`}>
+            <p key={index} className={`whitespace-pre-wrap ${padding}`}>
               {c.description}
             </p>
           );
@@ -42,12 +42,12 @@ export default function ProjectContent({ content }: ProjectContentProps) {
 
         if (content === ContentTypes.image && isImageType(c.image)) {
           const url = getImageUrl(c.image);
-          let width = "100%";
-          let height = "100%";
+          let width = "w-full";
+          let height = "h-full";
           let fullWidth = "100vw";
 
-          if (type === ImageTypes.portrait) width = "30%";
-          if (type === ImageTypes.landscape) width = "60%";
+          if (type === ImageTypes.portrait) width = "md:w-[50%] w-full";
+          if (type === ImageTypes.landscape) width = "md:h-[80%] h-full";
           if (type === ImageTypes.fullWidth) padding = "";
 
           return (
@@ -58,8 +58,8 @@ export default function ProjectContent({ content }: ProjectContentProps) {
               <img
                 src={url}
                 alt={type}
-                className={`${position}`}
-                style={{ width, height, objectFit: "contain" }}
+                className={`${position} ${width} ${height}`}
+                style={{ objectFit: "contain" }}
               />
             </picture>
           );

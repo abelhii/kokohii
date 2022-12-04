@@ -694,8 +694,6 @@ video {
 
 * {
   box-sizing: border-box;
-  --koko-black: #2f2f2f;
-  --koko-white: #E5E5E5;
 }
 
 html,
@@ -711,26 +709,6 @@ a {
   color: inherit;
   text-decoration: none;
 }
-
-/* @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: var(--koko-black);
-  }
-}
-
-@media (prefers-color-scheme: light) {
-  html {
-    color-scheme: light;
-  }
-  body {
-    color: var(--koko-black);
-    background: var(--koko-white);
-  }
-} */
 
 .hover\:text-orange-600:hover {
   --tw-text-opacity: 1;

@@ -9,8 +9,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'koko-black': "#2f2f2f",
-        'koko-white': "#e5e5e5",
+        'koko-dark': "#3B413C",
+        'koko-light': "#C4D3D1",
+        'project-dark': "#2F2F2F",
+        'project-light': "#E5E5E5",
       },
     },
     fontFamily: {

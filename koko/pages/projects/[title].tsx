@@ -6,9 +6,7 @@ import { useRouter } from "next/router";
 import NavButton from "../../components/NavButton";
 import ProjectContent from "../../components/ProjectContent";
 import navArrow from "../../public/images/nav-arrow.svg";
-import {
-  APIDatas, Project as ProjectType
-} from "../../shared/types";
+import { APIDatas, Project as ProjectType } from "../../shared/types";
 import { getImageUrl } from "../../shared/utils";
 
 const getProject = async (title: string): Promise<APIDatas<ProjectType>> => {
@@ -60,7 +58,7 @@ export default function Project() {
   const coverImageUrl = getImageUrl(coverImage);
 
   return (
-    <article className="grid overflow-y-auto h-screen">
+    <article className="grid overflow-y-auto h-screen bg-project-light dark:bg-project-dark text-project-dark dark:text-white">
       <section className="h-full w-full">
         <picture>
           <img
@@ -76,7 +74,7 @@ export default function Project() {
         </picture>
       </section>
 
-      <section className="relative grid gap-40 m-52">
+      <section className="relative grid lg:m-52 md:m-25 m-10">
         <div className="fixed top-0 left-0 p-10">
           <NavButton href="/">
             <Image src={navArrow} alt="nav arrow" />
@@ -84,10 +82,10 @@ export default function Project() {
           </NavButton>
         </div>
 
-        <div className="flex justify-between">
+        <div className="flex justify-between md:gap-40 gap-20 lg:flex-row flex-col">
           <div className="flex flex-col gap-5 justify-start">
             <h1 className="text-4xl">{projectTitle}</h1>
-            <p className="text-l max-w-lg">{description}</p>
+            <p className="text-l max-w-lg whitespace-pre-wrap">{description}</p>
           </div>
           <div className="flex flex-col gap-10 w-full max-w-xs">
             <section className="grid gap-3">
