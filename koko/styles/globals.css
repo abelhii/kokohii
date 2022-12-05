@@ -12,9 +12,8 @@ html,
 body {
   padding: 0;
   margin: 0;
-  height: 100vh;
-  overflow: hidden;
   font-family: NeueMontreal, sans-serif;
+  scroll-behavior: smooth;
 }
 
 a {

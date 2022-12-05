@@ -1,10 +1,10 @@
-import axios from "axios";
-import React, { ReactNode, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-import { APIData, ImageType } from "@shared/types";
-import { getImageUrl } from "@shared/utils";
 import HamburgerMenu from "@components/hamburger-menu/HamburgerMenu";
+import ScrollDown from "@components/ScrollDown";
+import { APIData, ImageType } from "@shared/types";
 
 type HeaderType = {
   introduction: string;
@@ -77,6 +77,9 @@ const HeaderData = ({ name, introduction, subIntro }: HeaderType) => {
       <div className="flex flex-col items-center justify-center h-full w-full gap-40 whitespace-pre-wrap">
         <LoopingTitleText titles={["Creative Designer", "Based in Ireland"]} />
       </div>
+      <a href="#about" className="self-start">
+        <ScrollDown onClick={() => console.log('click')}/>
+      </a>
     </>
   );
 };

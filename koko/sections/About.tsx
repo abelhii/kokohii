@@ -16,7 +16,7 @@ export default function About() {
   let description = data?.data.attributes;
 
   return (
-    <section className="flex items-center justify-end h-full min-h-screen max-w-full border-solid border-2 border-green-700">
+    <section id="about" className="flex items-center justify-end h-full min-h-screen max-w-full border-solid border-2 border-green-700">
       <p className="max-w-4xl whitespace-pre-wrap text-4xl pr-40">{'\t\t\t\t' + description?.about || ''}</p>
     </section>
   );
