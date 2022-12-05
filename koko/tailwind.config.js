@@ -16,13 +16,13 @@ module.exports = {
       },
       keyframes: {
         "slide-up": {
-          "0%": { transform: "translate3D(0px, 100%, 0px)" },
-          "50%": { transform: "translate3D(0px, 0%, 0px)" },
-          "100%": { transform: "translate3D(0px, -100%, 0px)" },
+          "0%": { transform: "translateY(100%)", opacity: 0 },
+          "50%, 70%": { transform: "translateY(0%)", opacity: 1 },
+          "100%": {transform: "translateY(-100%)", opacity: 0}
         },
       },
       animation: {
-        "slide-up": "slide-up 2s ease-in-out",
+        "slide-up": "slide-up 2.5s cubic-bezier(0.25, 0.05, 0.55, 1.25) forwards",
       },
     },
     fontFamily: {
