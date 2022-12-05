@@ -1,12 +1,10 @@
 import axios from "axios";
-import Image from "next/image";
 import React, { ReactNode, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import { APIData, ImageType } from "@shared/types";
 import { getImageUrl } from "@shared/utils";
 import HamburgerMenu from "@components/hamburger-menu/HamburgerMenu";
-import scrollDown from '@images/scroll-down.svg';
 
 type HeaderType = {
   introduction: string;
@@ -79,7 +77,6 @@ const HeaderData = ({ name, introduction, subIntro }: HeaderType) => {
       <div className="flex flex-col items-center justify-center h-full w-full gap-40 whitespace-pre-wrap">
         <LoopingTitleText titles={["Creative Designer", "Based in Ireland"]} />
       </div>
-        <Image src={scrollDown} alt="scroll-down" className="animate-spin" />
     </>
   );
 };
