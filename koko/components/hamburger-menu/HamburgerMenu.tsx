@@ -6,7 +6,7 @@ type HamburgerMenuProps = {
 
 export default function HamburgerMenu({ onChange }: HamburgerMenuProps) {
   return (
-    <div className={styles["hamburger-menu"]}>
+    <div className={`${styles["hamburger-menu"]} w-[26px] h-[26px]`}>
       <input
         id={styles.menu__toggle}
         type="checkbox"

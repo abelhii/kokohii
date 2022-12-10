@@ -1,4 +1,5 @@
 import { useTheme } from "next-themes";
+import { useEffect, useRef, useState } from "react";
 
 type ScrollDownProps = {
   onClick: () => void;
@@ -6,10 +7,35 @@ type ScrollDownProps = {
 
 export default function ScrollDown({ onClick }: ScrollDownProps) {
   const { theme } = useTheme();
-  const color = theme === "dark" ? "white" : "#101010";
+  const [color, setColor] = useState("white");
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [lastCall, setLastCall] = useState<any>(null);
+  const scrollBtn = useRef<SVGSVGElement>(null);
+  useEffect(() => {
+    setColor(theme === "dark" ? "white" : "#101010");
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (isScrolling) return;
+
+        if (lastCall) clearTimeout(lastCall);
+        setLastCall(
+          setTimeout(() => {
+            scrollBtn.current?.classList.add("animate-rotate-fast");
+            console.log('scrolling');
+          }, 200)
+        );
+
+        setIsScrolling(false);
+        scrollBtn.current?.classList.remove("animate-rotate-fast");
+      },
+      { passive: true }
+    );
+  }, [color]);
 
   return (
     <svg
+      ref={scrollBtn}
       width="161"
       height="164"
       viewBox="0 0 161 164"
@@ -115,7 +141,7 @@ export default function ScrollDown({ onClick }: ScrollDownProps) {
           d="M56.8384 51.455L56.2935 50.6166L54.6166 51.7065L55.1616 52.545L56.8384 51.455ZM55.1616 52.545L94.1616 112.545L95.8384 111.455L56.8384 51.455L55.1616 52.545Z"
           fill={color}
         />
-        <path d="M85.5 110L95 112L97 102.5" stroke={color} stroke-width="2" />
+        <path d="M85.5 110L95 112L97 102.5" stroke={color} strokeWidth="2" />
       </g>
     </svg>
   );

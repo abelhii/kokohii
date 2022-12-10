@@ -2,8 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-import HamburgerMenu from "@components/hamburger-menu/HamburgerMenu";
-import ScrollDown from "@components/ScrollDown";
 import { APIData, ImageType } from "@shared/types";
 
 type HeaderType = {
@@ -29,7 +27,7 @@ const LoopingTitleText = ({ titles }: { titles: string[] }) => {
       let titleIndex = activeIndex + 1;
       if (titleIndex === titles.length) titleIndex = 0;
       setActiveIndex(titleIndex);
-    }, 2750);
+    }, 2300);
 
     return () => clearInterval(titleInterval);
   }, [activeIndex]);
@@ -43,7 +41,7 @@ const LoopingTitleText = ({ titles }: { titles: string[] }) => {
             key={title + index}
             className={`${
               index !== activeIndex ? "hidden" : ""
-            } xl:text-9xl lg:text-7xl text-5xl max-w-5xl flex gap-8`}
+            } xl:text-9xl lg:text-7xl text-6xl flex gap-8`}
           >
             {words.map((word, index) => {
               return (
@@ -63,27 +61,6 @@ const LoopingTitleText = ({ titles }: { titles: string[] }) => {
   );
 };
 
-const HeaderData = ({ name, introduction, subIntro }: HeaderType) => {
-  return (
-    <>
-      <div className="flex justify-between content-center w-full whitespace-pre-wrap text-2xl">
-        <p>{name}</p>
-        <HamburgerMenu
-          onChange={(c) => {
-            console.log(c);
-          }}
-        />
-      </div>
-      <div className="flex flex-col items-center justify-center h-full w-full gap-40 whitespace-pre-wrap">
-        <LoopingTitleText titles={["Creative Designer", "Based in Ireland"]} />
-      </div>
-      <a href="#about" className="self-start">
-        <ScrollDown onClick={() => console.log('click')}/>
-      </a>
-    </>
-  );
-};
-
 export default function Header() {
   const { data } = useQuery(["getHeader"], getHeader);
 
@@ -96,7 +73,9 @@ export default function Header() {
       // }}
       className="font-header bg-no-repeat bg-center flex flex-col min-h-screen h-screen justify-center items-center border-red-500 border-solid border-2"
     >
-      {home ? HeaderData(home) : <h1>Loading...</h1>}
+      <div className="flex flex-col items-center justify-center h-full w-full gap-40 whitespace-pre-wrap">
+        <LoopingTitleText titles={["Creative Designer", "Based in Ireland"]} />
+      </div>
     </section>
   );
 }
