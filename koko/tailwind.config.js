@@ -9,6 +9,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        "koko-black": "#101010",
         "koko-dark": "#3B413C",
         "koko-light": "#C4D3D1",
         "project-dark": "#2F2F2F",
@@ -25,16 +26,23 @@ module.exports = {
           "100%": { transform: "rotate(360deg)", transformOrigin: "center" },
         },
         "pulse-outward": {
-          "0%, 100%": { transform: "translate3d(-2% ,-4%, 0)", transformOrigin: "center" },
-          "50%": { transform: "translate3d(2%, 4%, 0)", transformOrigin: "center" }
+          "0%, 100%": {
+            transform: "translate3d(-2% ,-4%, 0)",
+            transformOrigin: "center",
+          },
+          "50%": {
+            transform: "translate3d(2%, 4%, 0)",
+            transformOrigin: "center",
+          },
         }
       },
       animation: {
         "slide-up":
           "slide-up 2.5s cubic-bezier(0.25, 0.05, 0.55, 1.25) forwards",
-        "rotate": "rotate 4s linear infinite",
-        "rotate-fast": "rotate 2s linear infinite",
-        "pulse-outward": "pulse-outward 2s linear infinite"
+        "pulse-outward": "pulse-outward 2s linear infinite",
+        "rotate-fast": "rotate 3s linear infinite",
+        rotate: "rotate 4s linear infinite",
+        skew: "skew 8s linear infinite",
       },
     },
     fontFamily: {

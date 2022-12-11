@@ -8,34 +8,13 @@ type ScrollDownProps = {
 export default function ScrollDown({ onClick }: ScrollDownProps) {
   const { theme } = useTheme();
   const [color, setColor] = useState("white");
-  const [isScrolling, setIsScrolling] = useState(false);
-  const [lastCall, setLastCall] = useState<any>(null);
-  const scrollBtn = useRef<SVGSVGElement>(null);
+  const scrollCircle = useRef<SVGSVGElement>(null);
   useEffect(() => {
     setColor(theme === "dark" ? "white" : "#101010");
-    window.addEventListener(
-      "scroll",
-      () => {
-        if (isScrolling) return;
-
-        if (lastCall) clearTimeout(lastCall);
-        setLastCall(
-          setTimeout(() => {
-            scrollBtn.current?.classList.add("animate-rotate-fast");
-            console.log('scrolling');
-          }, 200)
-        );
-
-        setIsScrolling(false);
-        scrollBtn.current?.classList.remove("animate-rotate-fast");
-      },
-      { passive: true }
-    );
-  }, [color]);
+  }, [theme]);
 
   return (
     <svg
-      ref={scrollBtn}
       width="161"
       height="164"
       viewBox="0 0 161 164"
@@ -46,7 +25,10 @@ export default function ScrollDown({ onClick }: ScrollDownProps) {
         onClick();
       }}
     >
-      <g className="circle animate-rotate group-active:bg-red-500 group-hover:animate-rotate-fast">
+      <g
+        ref={scrollCircle}
+        className="circle animate-rotate group-active:bg-red-500 group-hover:animate-rotate-fast"
+      >
         <path
           d="M145 81.5038C145 82.9838 146.08 83.9038 147.4 83.9038C148.72 83.9038 149.8 82.9838 149.8 81.5038C149.8 80.0238 148.72 79.1038 147.4 79.1038C146.08 79.1038 145 80.0238 145 81.5038Z"
           fill={color}

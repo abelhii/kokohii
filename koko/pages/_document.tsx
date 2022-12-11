@@ -6,7 +6,7 @@ export default function Document() {
   return (
     <Html>
       <Head />
-      <body className="bg-koko-light dark:bg-koko-dark text-koko-dark dark:text-white">
+      <body className="bg-koko-light dark:bg-koko-dark text-koko-black dark:text-white">
         <Main />
         <NextScript />
       </body>
