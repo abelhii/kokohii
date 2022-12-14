@@ -2,9 +2,9 @@ import type { NextPage } from "next";
 import Head from "next/head";
 
 import FixedTools from "@components/FixedTools";
-import About from "@sections/About";
-import Header from "@sections/Header";
-import SelectedProjects from "@sections/SelectedProjects";
+import About from "@components/home/About";
+import Header from "@components/home/Header";
+import SelectedProjects from "@components/home/SelectedProjects";
 
 const Home: NextPage = () => {
   return (

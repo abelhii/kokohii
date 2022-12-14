@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React from "react";
 
-import ProjectCard from "../components/ProjectCard";
-import { Project } from "../shared/types";
-import { getImageUrl } from "../shared/utils";
+import ProjectCard from "../ProjectCard";
+import { Project } from "@shared/types";
+import { getImageUrl } from "@shared/utils";
 
 type SelectedProjectsType = {
   title: string;
@@ -38,11 +38,7 @@ export default function SelectedProjects() {
         {projects &&
           projects.map((project) => {
             const { id } = project;
-            const {
-              title,
-              contributions,
-              coverImage,
-            } = project.attributes;
+            const { title, contributions, coverImage } = project.attributes;
             const roles = contributions.data.map((c) => c.attributes.name);
 
             return (
