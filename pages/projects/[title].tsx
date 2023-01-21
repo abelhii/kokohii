@@ -116,8 +116,8 @@ export default function Project() {
                     <Image
                       key={id}
                       src={getImageUrl(logo)}
-                      width="30px"
-                      height="30px"
+                      width={30}
+                      height={30}
                       objectFit="contain"
                       alt={`${name} logo`}
                     />

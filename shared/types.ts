@@ -28,7 +28,7 @@ export type Project = {
 };
 
 export const CONTENT_TYPE = {
-  paragraph: "paragraph",
+  description: "description",
   image: "image",
 } as const
 export type ContentType = ObjectValue<typeof CONTENT_TYPE>;

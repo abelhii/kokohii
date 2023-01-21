@@ -1,47 +1,59 @@
-import { CONTENT_POSITIONS, CONTENT_TYPE } from "@shared/types";
-import { defineField, defineType } from "sanity";
+import {CONTENT_POSITIONS, CONTENT_TYPE} from '../../shared/types'
+import {defineField, defineType} from 'sanity'
 
-export const product = defineType({
-  name: "project",
-  type: "document",
-  title: "Project",
+export const project = defineType({
+  name: 'project',
+  type: 'document',
+  title: 'Project',
   fields: [
-    { name: "title", type: "string", title: "Title" },
-    { name: "description", type: "string", title: "Description" },
-    { name: "contributions", type: "", title: "Contributions" },
-    { name: "tech", type: "string", title: "Tech" },
-    { name: "coverImage", type: "string", title: "Cover Image" },
+    {title: 'Cover Image', name: 'coverImage', type: 'image'},
+    {title: 'Title', name: 'title', type: 'string'},
+    {title: 'Description', name: 'description', type: 'array', of: [{type: 'block'}]},
+    {title: 'Contributions', name: 'contributions', type: 'array', of: [{type: 'string'}]},
+    {title: 'Typography', name: 'typography', type: 'image'},
+    {title: 'Colour Palette', name: 'colour_palette', type: 'image'},
     {
-      name: "content",
-      type: "array",
-      title: "Content",
+      title: 'Content',
+      name: 'content',
+      type: 'array',
       of: [
         {
-          title: "",
-          type: "object",
+          title: '',
+          type: 'object',
           fields: [
             {
-              name: "type",
-              type: "string",
+              name: 'type',
+              type: 'string',
               options: {
                 list: [
-                  { title: "Paragraph", value: CONTENT_TYPE.paragraph },
-                  { title: "Image", value: CONTENT_TYPE.image },
+                  {title: 'Description', value: CONTENT_TYPE.description},
+                  {title: 'Image', value: CONTENT_TYPE.image},
                 ],
               },
             },
             {
-              name: "position",
-              type: "string",
-              initialValue: "center",
+              name: 'Description',
+              type: 'array',
+              of: [{type: 'block'}],
+              hidden: ({parent, value}) => !value && parent?.type !== CONTENT_TYPE.description,
+            },
+            {
+              name: 'Image',
+              type: 'image',
+              hidden: ({parent, value}) => !value && parent?.type !== CONTENT_TYPE.image,
+            },
+            {
+              name: 'position',
+              type: 'string',
+              initialValue: 'center',
               options: {
                 list: [
-                  { title: "Center", value: CONTENT_POSITIONS.CENTER },
-                  { title: "Left", value: CONTENT_POSITIONS.LEFT },
-                  { title: "Right", value: CONTENT_POSITIONS.RIGHT },
-                  { title: "Full Width", value: CONTENT_POSITIONS.FULL },
+                  {title: 'Center', value: CONTENT_POSITIONS.CENTER},
+                  {title: 'Left', value: CONTENT_POSITIONS.LEFT},
+                  {title: 'Right', value: CONTENT_POSITIONS.RIGHT},
+                  {title: 'Full Width', value: CONTENT_POSITIONS.FULL},
                 ],
-                layout: "dropdown",
+                layout: 'dropdown',
               },
             },
           ],
@@ -49,7 +61,7 @@ export const product = defineType({
       ],
     },
   ],
-});
+})
 
 /**
  * export type Project = {
