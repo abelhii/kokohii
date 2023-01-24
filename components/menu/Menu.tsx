@@ -8,9 +8,8 @@ type MenuProps = {
 export default function Menu({ showMenu }: MenuProps) {
   return (
     <section
-      className={`fixed z-20 flex flex-col justify-between h-screen w-screen bg-koko-light dark:bg-koko-dark transition-opacity opacity-0 !p-32 ${
-        showMenu && "opacity-100"
-      }`}
+      className={`fixed flex flex-col justify-between h-screen w-screen bg-koko-light dark:bg-koko-dark transition-opacity opacity-0 !p-32 
+      ${showMenu ? "opacity-100 z-20" : "z-[-10]"}`}
     >
       <ul className="text-8xl">
         <li>
@@ -34,7 +33,7 @@ export default function Menu({ showMenu }: MenuProps) {
         </ul>
         <div>
           <h2 className="text-9xl">Have an idea?</h2>
-          <p  className="text-6xl text-right">
+          <p className="text-6xl text-right">
             <Link href={""}>Let me help you!</Link>
           </p>
         </div>
