@@ -19,9 +19,10 @@ export default function FixedTools() {
         objectFit="cover"
         objectPosition="center"
         className="!fixed dark:mix-blend-multiply -z-10 opacity-50 dark:opacity-100 animate-pulse"
+        alt="background image"
       />
       <div className="z-30 p-10 pr-14 fixed flex justify-between content-center w-full whitespace-pre-wrap text-2xl">
-        <p style={{ visibility: showMenu ? "hidden" : 'visible' }}>Wardah</p>
+        <p style={{ visibility: showMenu ? "hidden" : "visible" }}>Wardah</p>
         <HamburgerMenu
           onChange={(c) => {
             console.log(c);

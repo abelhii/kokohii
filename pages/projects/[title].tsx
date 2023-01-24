@@ -1,76 +1,78 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
 import NavButton from "@components/NavButton";
 import ProjectContent from "@components/ProjectContent";
 import navArrow from "@images/nav-arrow.svg";
-import { APIDatas, Project as ProjectType } from "@shared/types";
-import { getImageUrl } from "@shared/utils";
+import client from "@shared/sanity-client";
+import { Project as ProjectType } from "@shared/types";
 
-const getProject = async (title: string): Promise<APIDatas<ProjectType>> => {
-  const qs = require("qs");
-  const query = qs.stringify(
-    {
-      filters: { title: { $eqi: title } },
-      populate: {
-        contributions: true,
-        coverImage: true,
-        techUsed: { populate: { logo: true } },
-        content: { populate: "*" },
-      },
+const getProject = async (title: string): Promise<ProjectType> => {
+  console.log(title);
+  const projects = await client.fetch<ProjectType>(`
+  *[_type == 'project' && title match '${title}']{
+    _id,
+    title,
+    description,
+    contributions,
+    "content": content[]{
+      type,
+      description,
+      position,
+      "image": image.asset->url,
     },
-    { encodeValuesOnly: true }
-  );
+    "typographyImg": typography.asset->url,
+    "colourPaletteImg": colour_palette.asset->url,
+    "coverImg": coverImage.asset->url,
+  }`);
 
-  const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_BACKEND}/api/projects?${query}`
-  );
-  return data;
+  console.log(projects);
+  return projects;
 };
 
 export default function Project() {
   const router = useRouter();
   const { title } = router.query;
-  const { data, isFetching } = useQuery(["getProject", title], () => {
+  const { data: project, isFetching } = useQuery(["getProject", title], () => {
     if (title && typeof title === "string") return getProject(title);
     return null;
   });
 
   if (isFetching) return null;
 
-  const project = data?.data[0].attributes;
   if (!project) {
     return <div>Project not found</div>;
   }
 
   const {
-    id: projectId,
     title: projectTitle,
-    contributions,
-    coverImage,
     description,
-    techUsed,
+    coverImg,
+    colourPaletteImg,
+    typographyImg,
+    content,
+    contributions,
   } = project;
 
   console.log(project);
-  const coverImageUrl = getImageUrl(coverImage);
 
   return (
     <article className="grid overflow-y-auto h-screen bg-project-light dark:bg-project-dark text-project-dark dark:text-white">
       <section className="h-full w-full">
         <picture>
-          <img
-            src={coverImageUrl}
-            alt={`Cover image for ${projectTitle}`}
-            style={{
-              width: "100vw",
-              height: "40vh",
-              objectFit: "cover",
-              objectPosition: "center",
-            }}
-          />
+          {coverImg && (
+            <img
+              src={coverImg}
+              alt={`Cover image for ${projectTitle}`}
+              style={{
+                width: "100vw",
+                height: "40vh",
+                objectFit: "cover",
+                objectPosition: "center",
+              }}
+            />
+          )}
         </picture>
       </section>
 
@@ -92,17 +94,17 @@ export default function Project() {
               <h3 className="text-xl">Roles/Contributions:</h3>
               <hr className="border-gray-500" />
               <ul className="flex flex-col gap-2">
-                {contributions.data.map((c, index) => {
+                {contributions?.map((contribution, index) => {
                   return (
-                    <li key={c.id + c.attributes.name}>
-                      <p className="mb-3">{c.attributes.name}</p>
+                    <li key={contribution}>
+                      <p className="mb-3">{contribution}</p>
                       <hr className="border-gray-500" />
                     </li>
                   );
                 })}
               </ul>
             </section>
-            <section className="grid gap-3">
+            {/* <section className="grid gap-3">
               <h3 className="text-xl">Tech used:</h3>
               <div className="flex gap-3">
                 {techUsed.data.map((t) => {
@@ -124,13 +126,13 @@ export default function Project() {
                   );
                 })}
               </div>
-            </section>
+            </section> */}
           </div>
         </div>
       </section>
 
       <section className="flex flex-col gap-32 my-32 items-center w-full">
-        <ProjectContent content={project.content} />
+        <ProjectContent content={content} />
       </section>
     </article>
   );

@@ -4,7 +4,6 @@ import React from "react";
 
 import ProjectCard from "../ProjectCard";
 import { Project } from "@shared/types";
-import { getImageUrl } from "@shared/utils";
 
 type SelectedProjectsType = {
   title: string;
@@ -38,15 +37,15 @@ export default function SelectedProjects() {
         {projects &&
           projects.map((project) => {
             const { id } = project;
-            const { title, contributions, coverImage } = project.attributes;
-            const roles = contributions.data.map((c) => c.attributes.name);
+            const { title, contributions, coverImg } = project.attributes;
+            const roles = contributions.map((c) => project.attributes.title);
 
             return (
               <ProjectCard
                 key={id}
                 title={title}
                 contributions={roles}
-                coverImageUrl={getImageUrl(coverImage)}
+                coverImageUrl={coverImg}
               />
             );
           })}

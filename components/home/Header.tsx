@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-import { APIData, ImageType } from "@shared/types";
+import { ImageType } from "@shared/types";
 
 type HeaderType = {
   introduction: string;
@@ -13,7 +13,7 @@ type HeaderType = {
   headerImage: ImageType;
 };
 
-const getHeader = async (): Promise<APIData<HeaderType>> => {
+const getHeader = async (): Promise<HeaderType> => {
   const { data } = await axios.get(
     process.env.NEXT_PUBLIC_BACKEND + "/api/home?populate=*"
   );
@@ -62,9 +62,8 @@ const LoopingTitleText = ({ titles }: { titles: string[] }) => {
 };
 
 export default function Header() {
-  const { data } = useQuery(["getHeader"], getHeader);
-
-  const home = data?.data.attributes;
+  const { data: home } = useQuery(["getHeader"], getHeader);
+  
   return (
     <section className="font-header bg-no-repeat bg-center flex flex-col min-h-screen h-screen justify-center items-center border-red-500 border-solid border-2">
       <div className="flex flex-col items-center justify-center h-full w-full gap-40 whitespace-pre-wrap">

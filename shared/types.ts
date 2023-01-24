@@ -1,36 +1,26 @@
-// Common
-
 type ObjectValue<T> = T[keyof T];
 
-export type APIData<ATTR> = {
-  data: {
-    id: number;
-    attributes: ATTR;
-  };
-};
-
-export type APIDatas<ATTR> = {
-  data: {
-    id: number;
-    attributes: ATTR;
-  }[];
-};
-
-// API specific
 export type Project = {
-  id: string;
   title: string;
   description: string;
-  contributions: APIDatas<{ name: string }>;
-  techUsed: APIDatas<{ name: string; logo: ImageType }>;
-  coverImage: ImageType;
-  content: DynamicComponent[];
+  coverImg: string;
+  typographyImg: string;
+  colourPaletteImg: string;
+  contributions: string[];
+  content: Content[];
+};
+
+export type Content = {
+  type: ContentType;
+  position: ContentPositions;
+  description?: string;
+  image?: { type: ImageType; url: string };
 };
 
 export const CONTENT_TYPE = {
   description: "description",
   image: "image",
-} as const
+} as const;
 export type ContentType = ObjectValue<typeof CONTENT_TYPE>;
 
 export const IMAGE_TYPE = {
@@ -47,8 +37,3 @@ export const CONTENT_POSITIONS = {
   FULL: "full",
 } as const;
 export type ContentPositions = ObjectValue<typeof CONTENT_POSITIONS>;
-
-export type DynamicComponent = {
-  id: number;
-  __component: string;
-} & Record<string, string | number | ImageType>;

@@ -1,5 +1,5 @@
-import {CONTENT_POSITIONS, CONTENT_TYPE} from '../../shared/types'
-import {defineField, defineType} from 'sanity'
+import { defineType } from 'sanity'
+import { CONTENT_POSITIONS, CONTENT_TYPE, IMAGE_TYPE } from '../../shared/types'
 
 export const project = defineType({
   name: 'project',
@@ -22,6 +22,7 @@ export const project = defineType({
           type: 'object',
           fields: [
             {
+              title: 'Type',
               name: 'type',
               type: 'string',
               options: {
@@ -32,17 +33,39 @@ export const project = defineType({
               },
             },
             {
-              name: 'Description',
+              title: 'Description',
+              name: 'description',
               type: 'array',
               of: [{type: 'block'}],
               hidden: ({parent, value}) => !value && parent?.type !== CONTENT_TYPE.description,
             },
             {
-              name: 'Image',
-              type: 'image',
+              title: 'Image',
+              name: 'image',
+              type: 'object',
               hidden: ({parent, value}) => !value && parent?.type !== CONTENT_TYPE.image,
+              fields: [
+                {
+                  title: 'Type',
+                  name: 'type',
+                  type: 'string',
+                  options: {
+                    list: [
+                      {title: 'Portrait', value: IMAGE_TYPE.portrait},
+                      {title: 'Landscape', value: IMAGE_TYPE.landscape},
+                      {title: 'Full Width', value: IMAGE_TYPE.fullWidth},
+                    ],
+                  },
+                },
+                {
+                  title: 'Image',
+                  name: 'image',
+                  type: 'image',
+                },
+              ],
             },
             {
+              title: 'Position',
               name: 'position',
               type: 'string',
               initialValue: 'center',
@@ -62,15 +85,3 @@ export const project = defineType({
     },
   ],
 })
-
-/**
- * export type Project = {
-  id: string;
-  title: string;
-  description: string;
-  contributions: APIDatas<{ name: string }>;
-  techUsed: APIDatas<{ name: string; logo: ImageType }>;
-  coverImage: ImageType;
-  content: DynamicComponent[];
-};
- */
