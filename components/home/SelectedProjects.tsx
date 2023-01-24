@@ -14,7 +14,6 @@ const getSelectedProjects = async (): Promise<ProjectType[]> => {
     "coverImg": coverImage.asset->url,
   }`);
 
-  console.log(projects);
   return projects;
 };
 

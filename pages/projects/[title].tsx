@@ -7,9 +7,10 @@ import ProjectContent from "@components/ProjectContent";
 import navArrow from "@images/nav-arrow.svg";
 import client from "@shared/sanity-client";
 import { Project as ProjectType } from "@shared/types";
+import FixedTools from "@components/FixedTools";
 
 const getProject = async (title: string): Promise<ProjectType> => {
-  const projects = await client.fetch<ProjectType>(`
+  const projects = await client.fetch<ProjectType[]>(`
   *[_type == 'project' && title match '${title}']{
     _id,
     title,
@@ -26,24 +27,22 @@ const getProject = async (title: string): Promise<ProjectType> => {
     "coverImg": coverImage.asset->url,
   }`);
 
-  return projects;
+  return projects[0];
 };
 
 export default function Project() {
   const router = useRouter();
   const { title } = router.query;
-  const { data: project, isFetching } = useQuery(["getProject", title], () => {
-    if (title && typeof title === "string") return getProject(title);
-    return null;
-  });
+  const { data: project, isFetching } = useQuery(
+    ["getProject", title],
+    async () => {
+      if (title && typeof title === "string") return await getProject(title);
+      return null;
+    }
+  );
 
-  console.log(project);
-
-  if (isFetching) return null;
-
-  if (!project) {
-    return <div>Project not found</div>;
-  }
+  if (isFetching) return <div>Fetching</div>;
+  if (!project) return <div>Project not found</div>;
 
   const {
     title: projectTitle,
@@ -56,7 +55,9 @@ export default function Project() {
   } = project;
 
   return (
-    <article className="grid overflow-y-auto h-screen bg-project-light dark:bg-project-dark text-project-dark dark:text-white">
+    <article className="grid h-screen bg-project-light dark:bg-project-dark text-project-dark dark:text-white">
+      <FixedTools show={{scrollDown: false, title: false, hamburger: false}} />
+
       <section className="h-full w-full">
         <picture>
           <img
@@ -64,7 +65,7 @@ export default function Project() {
             alt={`Cover image for ${projectTitle}`}
             style={{
               width: "100vw",
-              height: "40vh",
+              height: "50vh",
               objectFit: "cover",
               objectPosition: "center",
             }}
@@ -72,35 +73,38 @@ export default function Project() {
         </picture>
       </section>
 
-      <section className="relative grid lg:m-52 md:m-25 m-10">
-        <div className="fixed top-0 left-0 p-10">
+      <section className="relative grid">
+        <div className="absolute top-0 left-0 p-10">
           <NavButton href="/">
             <Image src={navArrow} alt="nav arrow" />
             Back
           </NavButton>
         </div>
 
-        <div className="flex justify-between md:gap-40 gap-20 lg:flex-row flex-col">
-          <div className="flex flex-col gap-5 justify-start">
-            <h1 className="text-4xl">{projectTitle}</h1>
-            <p className="text-l max-w-lg whitespace-pre-wrap">{description}</p>
-          </div>
-          <div className="flex flex-col gap-10 w-full max-w-xs">
-            <section className="grid gap-3">
-              <h3 className="text-xl">Roles/Contributions:</h3>
-              <hr className="border-gray-500" />
-              <ul className="flex flex-col gap-2">
-                {contributions?.map((contribution, index) => {
-                  return (
-                    <li key={contribution}>
-                      <p className="mb-3">{contribution}</p>
-                      <hr className="border-gray-500" />
-                    </li>
-                  );
-                })}
-              </ul>
-            </section>
-            {/* <section className="grid gap-3">
+        <div className=" lg:m-52 md:m-25 m-10">
+          <div className="flex justify-between md:gap-40 gap-20 lg:flex-row flex-col">
+            <div className="flex flex-col gap-5 justify-start">
+              <h1 className="text-4xl">{projectTitle}</h1>
+              <p className="text-l max-w-lg whitespace-pre-wrap">
+                {JSON.stringify(description)}
+              </p>
+            </div>
+            <div className="flex flex-col gap-10 w-full max-w-xs">
+              <section className="grid gap-3">
+                <h3 className="text-xl">Roles/Contributions:</h3>
+                <hr className="border-gray-500" />
+                <ul className="flex flex-col gap-2">
+                  {contributions.map((contribution, index) => {
+                    return (
+                      <li key={contribution}>
+                        <p className="mb-3">{contribution}</p>
+                        <hr className="border-gray-500" />
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
+              {/* <section className="grid gap-3">
               <h3 className="text-xl">Tech used:</h3>
               <div className="flex gap-3">
                 {techUsed.data.map((t) => {
@@ -123,6 +127,7 @@ export default function Project() {
                 })}
               </div>
             </section> */}
+            </div>
           </div>
         </div>
       </section>

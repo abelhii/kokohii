@@ -31,10 +31,6 @@ export default function ProjectCard({
       <div className="flex justify-between items-center px-10 py-9 max-h-40 bg-koko-dark text-white dark:bg-white dark:text-koko-dark">
         <div className="grid gap-1">
           <h2 className="text-2xl">{title}</h2>
-          <ul>
-            {contributions?.length &&
-              contributions.map((c, index) => <li key={index}>{c}</li>)}
-          </ul>
         </div>
         <NavButton href={`/projects/${title}`}>
           View <Image src={navArrow} alt="view project arrow" />
