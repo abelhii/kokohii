@@ -1,6 +1,7 @@
 type ObjectValue<T> = T[keyof T];
 
 export type Project = {
+  id: string;
   title: string;
   description: string;
   coverImg: string;

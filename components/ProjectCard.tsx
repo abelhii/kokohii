@@ -16,7 +16,7 @@ export default function ProjectCard({
 }: ProjectCardProps) {
   return (
     <article className="flex flex-col p-4 w-full h-full row-span-5">
-      {coverImageUrl && (
+      {
         <div>
           <Image
             src={coverImageUrl}
@@ -27,7 +27,7 @@ export default function ProjectCard({
             alt="cover image"
           />
         </div>
-      )}
+      }
       <div className="flex justify-between items-center px-10 py-9 max-h-40 bg-koko-dark text-white dark:bg-white dark:text-koko-dark">
         <div className="grid gap-1">
           <h2 className="text-2xl">{title}</h2>

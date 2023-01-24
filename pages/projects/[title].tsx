@@ -9,7 +9,6 @@ import client from "@shared/sanity-client";
 import { Project as ProjectType } from "@shared/types";
 
 const getProject = async (title: string): Promise<ProjectType> => {
-  console.log(title);
   const projects = await client.fetch<ProjectType>(`
   *[_type == 'project' && title match '${title}']{
     _id,
@@ -27,7 +26,6 @@ const getProject = async (title: string): Promise<ProjectType> => {
     "coverImg": coverImage.asset->url,
   }`);
 
-  console.log(projects);
   return projects;
 };
 
@@ -38,6 +36,8 @@ export default function Project() {
     if (title && typeof title === "string") return getProject(title);
     return null;
   });
+
+  console.log(project);
 
   if (isFetching) return null;
 
@@ -55,24 +55,20 @@ export default function Project() {
     contributions,
   } = project;
 
-  console.log(project);
-
   return (
     <article className="grid overflow-y-auto h-screen bg-project-light dark:bg-project-dark text-project-dark dark:text-white">
       <section className="h-full w-full">
         <picture>
-          {coverImg && (
-            <img
-              src={coverImg}
-              alt={`Cover image for ${projectTitle}`}
-              style={{
-                width: "100vw",
-                height: "40vh",
-                objectFit: "cover",
-                objectPosition: "center",
-              }}
-            />
-          )}
+          <img
+            src={coverImg}
+            alt={`Cover image for ${projectTitle}`}
+            style={{
+              width: "100vw",
+              height: "40vh",
+              objectFit: "cover",
+              objectPosition: "center",
+            }}
+          />
         </picture>
       </section>
 
