@@ -26,11 +26,9 @@ export default function FixedTools({
     <>
       <Menu showMenu={showMenu} />
       <Image
+        fill
         src={bg}
-        layout="fill"
-        objectFit="cover"
-        objectPosition="center"
-        className="!fixed dark:mix-blend-multiply -z-10 opacity-50 dark:opacity-100 animate-pulse"
+        className="!fixed dark:mix-blend-multiply -z-10 opacity-50 dark:opacity-100 animate-pulse object-cover object-center"
         alt="background image"
       />
 
@@ -54,7 +52,7 @@ export default function FixedTools({
           <ScrollDown onClick={() => console.log("click")} />
         </a>
       )}
-      
+
       <div className="z-30 fixed bottom-0 right-4 p-10">
         <ThemeChanger />
       </div>
