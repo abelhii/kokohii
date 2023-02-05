@@ -1,5 +1,5 @@
 import { defineType } from 'sanity'
-import { CONTENT_POSITIONS, CONTENT_TYPE, IMAGE_TYPE } from '../../shared/types'
+import { CONTENT_POSITIONS, CONTENT_TYPE, IMAGE_ORIENTATION } from '../../shared/types'
 
 export const project = defineType({
   name: 'project',
@@ -46,14 +46,14 @@ export const project = defineType({
               hidden: ({parent, value}) => !value && parent?.type !== CONTENT_TYPE.image,
               fields: [
                 {
-                  title: 'Type',
-                  name: 'type',
+                  title: 'Orientation',
+                  name: 'orientation',
                   type: 'string',
                   options: {
                     list: [
-                      {title: 'Portrait', value: IMAGE_TYPE.portrait},
-                      {title: 'Landscape', value: IMAGE_TYPE.landscape},
-                      {title: 'Full Width', value: IMAGE_TYPE.fullWidth},
+                      {title: 'Portrait', value: IMAGE_ORIENTATION.portrait},
+                      {title: 'Landscape', value: IMAGE_ORIENTATION.landscape},
+                      {title: 'Full Width', value: IMAGE_ORIENTATION.fullWidth},
                     ],
                   },
                 },
