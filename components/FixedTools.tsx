@@ -54,7 +54,7 @@ export default function FixedTools({
       </div>
 
       {show.scrollDown && (
-        <a href="#about" className="z-10 fixed bottom-0 p-10 self-start">
+        <a href="#about" className="z-10 absolute bottom-0 p-10 self-start">
           <ScrollDown onClick={() => console.log("click")} />
         </a>
       )}

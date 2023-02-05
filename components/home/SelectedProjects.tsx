@@ -26,7 +26,7 @@ export default function SelectedProjects() {
   if (!projects) return <p>no projects found</p>;
 
   return (
-    <section className="min-h-screen border-solid border-2 border-yellow-400">
+    <section id="selected-projects" className="min-h-screen">
       <div className="grid grid-cols-2 p-20 items-center justify-items-center">
         <div className="self-center p-10 row-span-2 row-start-1">
           <h2 className="text-4xl font-header">Selected Projects</h2>
