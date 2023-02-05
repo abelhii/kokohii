@@ -33,12 +33,11 @@ export default function SelectedProjects() {
         </div>
         {projects &&
           projects.map((project, index) => {
-            const { id } = project;
-            const { title, contributions, coverImg } = project;
+            const { id, title, contributions, coverImg } = project;
 
             return (
               <ProjectCard
-                key={index}
+                key={index + id}
                 title={title}
                 contributions={contributions}
                 coverImageUrl={coverImg}

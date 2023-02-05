@@ -59,7 +59,7 @@ export default function Project() {
   } = project;
 
   return (
-    <article className="grid min-h-screen h-full bg-project-light dark:bg-project-dark text-project-dark dark:text-white">
+    <article className="grid gap-10 min-h-screen h-full bg-project-light dark:bg-project-dark text-project-dark dark:text-white">
       <FixedTools show={{ scrollDown: false, title: false, hamburger: true }} />
 
       <section className="flex gap-8 p-10">
@@ -114,8 +114,30 @@ export default function Project() {
         </div>
       </section>
 
-      <section className="flex flex-col my-20 xl:gap-32 gap-20 items-center w-full">
+      <section className="flex flex-col xl:gap-32 gap-20 items-center">
         <ProjectContent content={content} />
+      </section>
+
+      <section className="flex flex-col gap-20 h-full w-full">
+        <div className="flex relative lg:my-20 lg:px-0 my-10 px-10 justify-between mx-auto h-full w-full sm:max-w-2xl 2xl:max-w-7xl xl:max-w-6xl lg:max-w-4xl">
+          <h2 className="text-4xl align-baseline">Typography</h2>
+          <Image
+            height="500"
+            width="800"
+            src={typographyImg}
+            alt={"Typography"}
+          />
+        </div>
+
+        <div className="flex relative lg:mb-52 lg:px-0 my-40 px-10 justify-between mx-auto h-full w-full sm:max-w-2xl 2xl:max-w-7xl xl:max-w-6xl lg:max-w-4xl">
+          <h2 className="text-4xl align-baseline">Colour Palette</h2>
+          <Image
+            height="500"
+            width="800"
+            src={colourPaletteImg}
+            alt={"Colour palette"}
+          />
+        </div>
       </section>
     </article>
   );
