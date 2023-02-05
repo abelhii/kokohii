@@ -17,7 +17,7 @@ export type Content = {
   type: ContentType;
   position: ContentPositions;
   description?: PortableTextBlock[];
-  image?: { type: ImageOrientation; url: string };
+  image?: { orientation: ImageOrientation; url: string };
 };
 
 export const CONTENT_TYPE = {

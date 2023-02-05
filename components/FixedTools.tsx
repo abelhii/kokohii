@@ -34,16 +34,18 @@ export default function FixedTools({
 
       <div className="z-30 p-10 pr-14 fixed flex justify-between content-center w-full whitespace-pre-wrap text-2xl">
         {show.title && (
-          <p style={{ visibility: showMenu ? "hidden" : "visible" }}>Wardah</p>
+          <p className="mr-auto" style={{ visibility: showMenu ? "hidden" : "visible" }}>Wardah</p>
         )}
 
         {show.hamburger && (
-          <HamburgerMenu
-            onChange={(c) => {
-              console.log(c);
-              setShowMenu(c);
-            }}
-          />
+          <div className="ml-auto">
+            <HamburgerMenu
+              onChange={(c) => {
+                console.log(c);
+                setShowMenu(c);
+              }}
+            />
+          </div>
         )}
       </div>
 

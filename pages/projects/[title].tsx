@@ -21,7 +21,10 @@ const getProject = async (title: string): Promise<ProjectType> => {
       type,
       description,
       position,
-      "image": image.asset->url,
+      "image": image{
+        orientation,
+        "url": image.asset->url
+      },
     },
     "typographyImg": typography.asset->url,
     "colourPaletteImg": colour_palette.asset->url,
@@ -56,9 +59,9 @@ export default function Project() {
   } = project;
 
   return (
-    <article className="grid h-screen bg-project-light dark:bg-project-dark text-project-dark dark:text-white">
+    <article className="grid min-h-screen h-full bg-project-light dark:bg-project-dark text-project-dark dark:text-white">
       <FixedTools
-        show={{ scrollDown: false, title: false, hamburger: false }}
+        show={{ scrollDown: false, title: false, hamburger: true }}
       />
 
       <section className="h-full w-full">
@@ -84,17 +87,17 @@ export default function Project() {
           </NavButton>
         </div>
 
-        <div className="lg:m-52 md:m-25 m-10">
-          <div className="flex justify-between md:gap-40 gap-20 lg:flex-row flex-col">
+        <div className="mx-auto lg:my-20 lg:px-0 my-10 px-10 w-full sm:max-w-2xl 2xl:max-w-7xl xl:max-w-6xl lg:max-w-4xl">
+          <div className="flex justify-between md:gap-20 gap-10 lg:flex-row flex-col">
             <div className="flex flex-col gap-5 justify-start">
               <h1 className="text-4xl">{projectTitle}</h1>
-              <div className="max-w-lg prose dark:prose-invert lg:prose-xl prose-p:text-base">
+              <div className="max-w-lg prose dark:prose-invert lg:prose-xl xl:prose-p:text-2xl xl:prose-h4:text-2xl">
                 <PortableText value={description} />
               </div>
             </div>
             <div className="flex flex-col gap-10 w-full max-w-xs">
-              <section className="grid gap-3">
-                <h3 className="text-xl">Roles/Contributions:</h3>
+              <section className="grid gap-3 xl:text-2xl lg:text-xl text-base">
+                <h3 className="font-bold">Roles/Contributions:</h3>
                 <hr className="border-gray-500" />
                 <ul className="flex flex-col gap-2">
                   {contributions.map((contribution, index) => {
@@ -107,35 +110,12 @@ export default function Project() {
                   })}
                 </ul>
               </section>
-              {/* <section className="grid gap-3">
-              <h3 className="text-xl">Tech used:</h3>
-              <div className="flex gap-3">
-                {techUsed.data.map((t) => {
-                  const {
-                    id,
-                    attributes: { logo, name },
-                  } = t;
-                  if (!logo) return null;
-
-                  return (
-                    <Image
-                      key={id}
-                      src={getImageUrl(logo)}
-                      width={30}
-                      height={30}
-                      objectFit="contain"
-                      alt={`${name} logo`}
-                    />
-                  );
-                })}
-              </div>
-            </section> */}
             </div>
           </div>
         </div>
       </section>
 
-      <section className="flex flex-col gap-32 my-32 items-center w-full">
+      <section className="flex flex-col my-20 xl:gap-32 gap-20 items-center w-full">
         <ProjectContent content={content} />
       </section>
     </article>
