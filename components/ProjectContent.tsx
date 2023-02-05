@@ -25,7 +25,7 @@ export default function ProjectContent({ content }: { content: Content[] }) {
               className={`${position} lg:max-w-xl lg:px-0 w-full px-10
               prose dark:prose-invert lg:prose-xl xl:prose-p:text-2xl xl:prose-h4:text-2xl`}
             >
-              <PortableText value={c.description} />;
+              <PortableText value={c.description} />
             </div>
           );
         }

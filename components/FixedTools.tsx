@@ -32,16 +32,20 @@ export default function FixedTools({
         alt="background image"
       />
 
-      <div className="z-30 p-10 pr-14 fixed flex justify-between content-center w-full whitespace-pre-wrap text-2xl">
+      <div className="z-30 relative">
         {show.title && (
-          <p className="mr-auto" style={{ visibility: showMenu ? "hidden" : "visible" }}>Wardah</p>
+          <p
+            className="fixed left-14 pt-10 text-2xl"
+            style={{ visibility: showMenu ? "hidden" : "visible" }}
+          >
+            Wardah
+          </p>
         )}
 
         {show.hamburger && (
-          <div className="ml-auto">
+          <div className="fixed right-14 pt-10">
             <HamburgerMenu
               onChange={(c) => {
-                console.log(c);
                 setShowMenu(c);
               }}
             />

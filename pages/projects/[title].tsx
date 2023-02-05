@@ -60,9 +60,16 @@ export default function Project() {
 
   return (
     <article className="grid min-h-screen h-full bg-project-light dark:bg-project-dark text-project-dark dark:text-white">
-      <FixedTools
-        show={{ scrollDown: false, title: false, hamburger: true }}
-      />
+      <FixedTools show={{ scrollDown: false, title: false, hamburger: true }} />
+
+      <section className="flex gap-8 p-10">
+        <NavButton href="/">
+          <Image src={navArrow} alt="nav arrow" />
+          EXIT
+        </NavButton>
+
+        <h1 className="text-4xl font-header">{projectTitle}</h1>
+      </section>
 
       <section className="h-full w-full">
         <picture>
@@ -80,17 +87,9 @@ export default function Project() {
       </section>
 
       <section className="relative grid">
-        <div className="absolute top-0 left-0 p-10">
-          <NavButton href="/">
-            <Image src={navArrow} alt="nav arrow" />
-            Back
-          </NavButton>
-        </div>
-
         <div className="mx-auto lg:my-20 lg:px-0 my-10 px-10 w-full sm:max-w-2xl 2xl:max-w-7xl xl:max-w-6xl lg:max-w-4xl">
           <div className="flex justify-between md:gap-20 gap-10 lg:flex-row flex-col">
             <div className="flex flex-col gap-5 justify-start">
-              <h1 className="text-4xl">{projectTitle}</h1>
               <div className="max-w-lg prose dark:prose-invert lg:prose-xl xl:prose-p:text-2xl xl:prose-h4:text-2xl">
                 <PortableText value={description} />
               </div>
