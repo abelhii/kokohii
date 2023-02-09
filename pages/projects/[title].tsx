@@ -7,6 +7,7 @@ import NavButton from "@components/NavButton";
 import ProjectContent from "@components/ProjectContent";
 import navArrow from "@images/nav-arrow.svg";
 import { PortableText } from "@portabletext/react";
+import { useProjects } from "@shared/projects.context";
 import client from "@shared/sanity-client";
 import { Project as ProjectType } from "@shared/types";
 
@@ -44,9 +45,17 @@ export default function Project() {
       return null;
     }
   );
+  const { projects } = useProjects();
 
   if (isFetching) return <div>Fetching</div>;
   if (!project) return <div>Project not found</div>;
+
+  const projectIndex = projects.findIndex((p) => p._id === project._id);
+  let nextProjectIndex = projectIndex + 1;
+  if (nextProjectIndex >= projects.length) {
+    nextProjectIndex = 0;
+  }
+  const nextProject = projects[nextProjectIndex];
 
   const {
     title: projectTitle,
@@ -137,6 +146,26 @@ export default function Project() {
             src={colourPaletteImg}
             alt={"Colour palette"}
           />
+        </div>
+      </section>
+
+      <section className="flex flex-col pb-32 gap-4 items-center">
+        <h3 className="lg:text-4xl text-2xl">Next Project</h3>
+        <div className="grid relative items-center justify-center mt-10">
+          <div className="group relative m-auto cursor-pointer">
+            <span className="inline-block relative lg:w-[600px] lg:h-[400px] md:w-[400px] md:h-[300px] w-[200px] h-[150px] translate-y-20 -rotate-12 group-hover:rotate-0 group-hover:-translate-y-5 transition-transform">
+              <Image
+                fill
+                className="object-none"
+                src={nextProject?.coverImg}
+                alt={"Next project image"}
+              />
+            </span>
+            <h2 className="absolute z-10 w-full m-auto text-center opacity-0 select-none lg:text-8xl text-6xl font-header lg:group-hover:-translate-y-[300px] group-hover:-translate-y-52 group-hover:opacity-100 transition-all duration-300">
+              {nextProject?.title}
+            </h2>
+          </div>
+          <div className="relative lg:w-[800px] md:w-[600px] sm:w-[400px] w-[300px] h-[200px] z-10 border-solid border-t-[1px] dark:border-white border-koko-dark bg-project-light dark:bg-project-dark"></div>
         </div>
       </section>
     </article>

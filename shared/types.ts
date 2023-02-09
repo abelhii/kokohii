@@ -3,7 +3,7 @@ import { PortableTextBlock } from "@portabletext/types";
 type ObjectValue<T> = T[keyof T];
 
 export type Project = {
-  id: string;
+  _id: string;
   title: string;
   description: PortableTextBlock[];
   coverImg: string;

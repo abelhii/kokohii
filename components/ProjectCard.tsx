@@ -16,17 +16,22 @@ export default function ProjectCard({
 }: ProjectCardProps) {
   return (
     <article className="flex flex-col p-4 w-full h-full row-span-5">
-      <span className="relative h-[300px] w-[100%]">
+      <span className="relative md:h-96 h-56 w-[100%]">
         <Image
           fill
-          src={coverImageUrl}
-          className="object-cover"
           alt="cover image"
+          className="object-cover"
+          src={coverImageUrl}
         />
       </span>
-      <div className="flex justify-between items-center px-10 py-9 max-h-40 bg-koko-dark text-white dark:bg-white dark:text-koko-dark">
+      <div className="flex sm:flex-row flex-col gap-4 lg:p-10 max-h-52 p-4 justify-between items-center bg-koko-dark text-white dark:bg-white dark:text-koko-dark">
         <div className="grid gap-1">
-          <h2 className="text-2xl">{title}</h2>
+          <h2 className="md:text-2xl text-xl">{title}</h2>
+          <ul className="lg:block hidden">
+            {contributions.slice(0, 3).map((contribution) => (
+              <li>{contribution}</li>
+            ))}
+          </ul>
         </div>
         <NavButton href={`/projects/${title}`}>
           View <Image src={navArrow} alt="view project arrow" />
