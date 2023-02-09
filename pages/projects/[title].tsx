@@ -74,7 +74,7 @@ export default function Project() {
 
   return (
     <article className="grid gap-10 min-h-screen h-full bg-project-light dark:bg-project-dark text-project-dark dark:text-white">
-      <FixedTools show={{ scrollDown: false, title: false, hamburger: true }} />
+      <FixedTools show={{ scrollDown: false, title: false, hamburger: true, background: false, scrollTop: true }} />
 
       <section className="flex gap-8 px-10">
         <NavButton href="/">
