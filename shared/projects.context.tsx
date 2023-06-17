@@ -1,4 +1,3 @@
-import client from "@shared/sanity-client";
 import { useQuery } from "@tanstack/react-query";
 import {
   createContext,
@@ -7,6 +6,8 @@ import {
   useContext,
   useState
 } from "react";
+
+import client from "@shared/sanity-client";
 
 import { Project } from "./types";
 

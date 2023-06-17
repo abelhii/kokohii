@@ -1,3 +1,4 @@
+import { PortableText } from "@portabletext/react";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -6,7 +7,6 @@ import FixedTools from "@components/FixedTools";
 import NavButton from "@components/NavButton";
 import ProjectContent from "@components/ProjectContent";
 import navArrow from "@images/nav-arrow.svg";
-import { PortableText } from "@portabletext/react";
 import { useProjects } from "@shared/projects.context";
 import client from "@shared/sanity-client";
 import { Project as ProjectType } from "@shared/types";
@@ -22,46 +22,47 @@ const getProject = async (title: string): Promise<ProjectType> => {
       type,
       description,
       position,
+      gutterColor,
+      spaceBetween,
       "image": image{
         orientation,
         "url": image.asset->url
       },
     },
     "typographyImg": typography.asset->url,
-    "colourPaletteImg": colour_palette.asset->url,
+    "colourPaletteImg": colorPalette.asset->url,
     "coverImg": coverImage.asset->url,
   }`);
 
   return projects[0];
 };
 
+function useGetNextProject(currentProjectId: string) {
+  const { projects } = useProjects();
+
+  if (!projects) return;
+
+  const projectIndex = projects.findIndex((p) => p._id === currentProjectId);
+  let nextProjectIndex = projectIndex + 1;
+  if (nextProjectIndex >= projects.length) nextProjectIndex = 0;
+
+  return projects[nextProjectIndex];
+}
+
 export default function Project() {
   const router = useRouter();
   const { title } = router.query;
-  const { data: project, isFetching } = useQuery(
+  const { data: currentProject, isFetching } = useQuery(
     ["getProject", title],
     async () => {
       if (title && typeof title === "string") return await getProject(title);
-      return null;
     }
   );
-  const { projects } = useProjects();
 
   if (isFetching) return <div>Fetching</div>;
-  if (!project) return <div>Project not found</div>;
+  if (!currentProject) return <div>Project not found</div>;
 
-  let nextProject;
-  if (projects) {
-    const projectIndex = projects.findIndex((p) => p._id === project._id);
-    let nextProjectIndex = projectIndex + 1;
-    if (nextProjectIndex >= projects.length) {
-      nextProjectIndex = 0;
-    }
-    nextProject = projects[nextProjectIndex];
-  }
-
-  console.log(nextProject);
-
+  const nextProject = useGetNextProject(currentProject._id);
   const {
     title: projectTitle,
     description,
@@ -70,11 +71,19 @@ export default function Project() {
     typographyImg,
     content,
     contributions,
-  } = project;
+  } = currentProject;
 
   return (
     <article className="grid gap-10 min-h-screen h-full bg-project-light dark:bg-project-dark text-project-dark dark:text-white">
-      <FixedTools show={{ scrollDown: false, title: false, hamburger: true, background: false, scrollTop: true }} />
+      <FixedTools
+        show={{
+          scrollDown: false,
+          title: false,
+          hamburger: true,
+          background: false,
+          scrollTop: true,
+        }}
+      />
 
       <section className="flex gap-8 px-10">
         <NavButton href="/">
@@ -108,6 +117,7 @@ export default function Project() {
                 <PortableText value={description} />
               </div>
             </div>
+            
             <div className="flex flex-col gap-10 w-full max-w-xs">
               <section className="grid gap-3 xl:text-2xl lg:text-xl text-base">
                 <h3 className="font-bold">Roles/Contributions:</h3>
@@ -128,7 +138,7 @@ export default function Project() {
         </div>
       </section>
 
-      <section className="flex flex-col xl:gap-32 gap-20 items-center">
+      <section className="flex flex-col items-center">
         <ProjectContent content={content} />
       </section>
 

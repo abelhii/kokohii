@@ -17,6 +17,8 @@ export type Content = {
   type: ContentType;
   position: ContentPositions;
   description?: PortableTextBlock[];
+  gutterColor?: ColorInput;
+  spaceBetween?: boolean;
   image?: { orientation: ImageOrientation; url: string };
 };
 
@@ -40,3 +42,31 @@ export const CONTENT_POSITIONS = {
   FULL: "full",
 } as const;
 export type ContentPositions = ObjectValue<typeof CONTENT_POSITIONS>;
+
+// https://www.sanity.io/plugins/color-input
+type ColorInput = {
+  _type: "color";
+  hex: string;
+  alpha: number;
+  hsl: {
+    _type: "hslaColor";
+    h: number;
+    s: number;
+    l: number;
+    a: number;
+  };
+  hsv: {
+    _type: "hsvaColor";
+    h: number;
+    s: number;
+    v: number;
+    a: number;
+  };
+  rgb: {
+    _type: "rgbaColor";
+    r: number;
+    g: number;
+    b: number;
+    a: number;
+  };
+};
