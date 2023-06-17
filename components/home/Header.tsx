@@ -45,7 +45,7 @@ export default function Header() {
   return (
     <section className="font-header bg-no-repeat bg-center flex flex-col min-h-screen h-screen justify-center items-center">
       <div className="flex flex-col items-center justify-center h-full w-full gap-40 whitespace-pre-wrap">
-        <LoopingTitleText titles={["Creative Designer", "Based in Ireland"]} />
+        <LoopingTitleText titles={["Creative UIUX Designer", "Based in Ireland"]} />
       </div>
     </section>
   );

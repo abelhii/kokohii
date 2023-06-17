@@ -1,5 +1,5 @@
-import { defineType } from 'sanity'
-import { CONTENT_POSITIONS, CONTENT_TYPE, IMAGE_ORIENTATION } from '../../shared/types'
+import {defineType} from 'sanity'
+import {CONTENT_POSITIONS, CONTENT_TYPE, IMAGE_ORIENTATION} from '../../shared/types'
 
 export const project = defineType({
   name: 'project',
@@ -11,7 +11,7 @@ export const project = defineType({
     {title: 'Description', name: 'description', type: 'array', of: [{type: 'block'}]},
     {title: 'Contributions', name: 'contributions', type: 'array', of: [{type: 'string'}]},
     {title: 'Typography', name: 'typography', type: 'image'},
-    {title: 'Colour Palette', name: 'colour_palette', type: 'image'},
+    {title: 'Color Palette', name: 'colorPalette', type: 'image'},
     {
       title: 'Content',
       name: 'content',
@@ -21,6 +21,7 @@ export const project = defineType({
           title: '',
           type: 'object',
           fields: [
+            {title: 'Name', name: 'name', type: 'string'},
             {
               title: 'Type',
               name: 'type',
@@ -36,7 +37,7 @@ export const project = defineType({
               title: 'Description',
               name: 'description',
               type: 'array',
-              of: [{type: 'block'}],
+              of: [{type: 'block'}, {type: 'image'}],
               hidden: ({parent, value}) => !value && parent?.type !== CONTENT_TYPE.description,
             },
             {
@@ -78,6 +79,19 @@ export const project = defineType({
                 ],
                 layout: 'dropdown',
               },
+            },
+            {
+              name: 'gutterColor',
+              title: 'Gutter Color',
+              type: 'color',
+              hidden: ({parent, value}) => !value && parent?.type !== CONTENT_TYPE.image,
+            },
+            {
+              name: 'spaceBetween',
+              title: 'Space Between',
+              description: 'Should this section have a space between the next section?',
+              type: 'boolean',
+              initialValue: true
             },
           ],
         },
