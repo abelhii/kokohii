@@ -67,11 +67,11 @@ export default function ProjectContent({ content }: { content: Content[] }) {
   return (
     <>
       {content.map((c, index) => {
-        const gutterColor = `bg-[${c.gutterColor?.hex}]`;
+        const gutterColor = c.gutterColor?.hex;
         const spaceBetween = c.spaceBetween ?? true;
 
         const position = positionsMap[c.position];
-        const alignment = spaceBetween ? alignmentMap[c.position] : '';
+        const alignment = spaceBetween ? alignmentMap[c.position] : "mb-0";
 
         if (c.type === CONTENT_TYPE.description && c.description) {
           return (
@@ -98,7 +98,8 @@ export default function ProjectContent({ content }: { content: Content[] }) {
           return (
             <picture
               key={index}
-              className={`w-full ${bigSpacing} ${alignment} ${position} ${padding} ${gutterColor}`}
+              className={`w-full ${alignment} ${position} ${padding}`}
+              style={{ background: gutterColor }}
             >
               <img
                 src={url}
